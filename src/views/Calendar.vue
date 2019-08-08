@@ -34,6 +34,8 @@
               @beforeDeleteSchedule="onBeforeDeleteSchedule"
               @afterRenderSchedule="onAfterRenderSchedule"
               @clickTimezonesCollapseBtn="onClickTimezonesCollapseBtn"
+              @beforeCreateSchedule="onBeforeCreateSchedule"
+              @beforeUpdateSchedule="onBeforeUpdateSchedule"
     />
   </div>
 </template>
@@ -44,7 +46,7 @@ import 'tui-calendar/dist/tui-calendar.css'
 import '@/assets/calendar.css'
 
 import Calendar from '@toast-ui/vue-calendar/src/Calendar.vue'
-import myTheme from '@/assets/calendarTheme.js'
+import calendarTheme from '@/assets/calendarTheme'
 
 const today = new Date()
 
@@ -147,7 +149,7 @@ export default {
         displayLabel: 'GMT-08:00',
         tooltip: 'Los Angeles'
       }],
-      theme: myTheme,
+      theme: calendarTheme,
       template: {
         milestone (schedule) {
           return `<span style="color:#fff;background-color: ${schedule.bgColor};">${schedule.title}</span>`
@@ -267,6 +269,27 @@ export default {
         this.theme['week.timegridLeft.width'] = '50px'
         this.theme['week.daygridLeft.width'] = '50px'
       }
+    },
+    onBeforeCreateSchedule (res) {
+      console.group('onBeforeCreateSchedule')
+      console.log('event object ', res)
+      console.groupEnd()
+      let schedule = {
+        id: this.scheduleList.length,
+        calendarId: res.calendarId,
+        title: res.title,
+        category: 'time',
+        dueDateClass: '',
+        start: res.start,
+        end: res.end
+      }
+      this.scheduleList.push(schedule)
+    },
+    onBeforeUpdateSchedule (res) {
+      console.group('onBeforeUpdateSchedule')
+      console.log('event object ', res)
+      console.groupEnd()
+      this.$refs.tuiCal.invoke('updateSchedule', res.schedule.id, res.schedule.calendarId, res.schedule)
     }
   },
   mounted () {
