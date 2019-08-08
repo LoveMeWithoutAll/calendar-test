@@ -8,10 +8,10 @@
         </option>
       </select>
       <span @click="onClickNavi($event)">
-      <button type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
-      <button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">Prev</button>
-      <button type="button" class="btn btn-default btn-sm move-day" data-action="move-next">Next</button>
-    </span>
+        <button type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
+        <button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">Prev</button>
+        <button type="button" class="btn btn-default btn-sm move-day" data-action="move-next">Next</button>
+      </span>
       <span class="render-range">{{dateRange}}</span>
     </div>
     <calendar style="height: 800px"
